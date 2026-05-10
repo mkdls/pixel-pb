@@ -1240,11 +1240,22 @@
             let maxScs = decodedData.dlFeaturePerCCList?.[dlFeatureId - 1]?.maxScs || 0;
             let maxMimoCb = decodedData.ulFeaturePerCCList?.[ulFeatureId - 1]?.maxMimoCb || 0;
 
+            // --- 新增：取得 DL 與 UL 的 maxBw 以及 UL 的 maxScs 來進行 mmWave 的頻寬分級判斷 ---
+            let dlMaxBw = decodedData.dlFeaturePerCCList?.[dlFeatureId - 1]?.maxBw || 0;
+            let ulMaxScs = decodedData.ulFeaturePerCCList?.[ulFeatureId - 1]?.maxScs || 0;
+            let ulMaxBw = decodedData.ulFeaturePerCCList?.[ulFeatureId - 1]?.maxBw || 0;
+
             // Set bwClassDL
             if (dlFeatureCount === 0) {
                 featureObj.bwClassDL = 0;
             } else if (maxScs === 4) {
-                featureObj.bwClassDL = dlFeatureCount === 1 ? 1 : dlFeatureCount + 5;
+                // 處理 mmWave (120kHz): 若為 200MHz 以上的載波，套用 A(1), D(4), E(5), F(6)... 分級
+                if (dlMaxBw >= 200) {
+                    featureObj.bwClassDL = dlFeatureCount === 1 ? 1 : dlFeatureCount + 2;
+                } else {
+                    // 100MHz 的載波維持原樣，套用 A(1), G(7), H(8), I(9)... 分級
+                    featureObj.bwClassDL = dlFeatureCount === 1 ? 1 : dlFeatureCount + 5;
+                }
             } else {
                 featureObj.bwClassDL = dlFeatureCount === 1 ? 1 : dlFeatureCount + 1;
             }
@@ -1252,8 +1263,14 @@
             // Set bwClassUL
             if (ulFeatureCount === 0) {
                 featureObj.bwClassUL = 0;
-            } else if (maxScs === 4) {
-                featureObj.bwClassUL = ulFeatureCount === 1 ? 1 : ulFeatureCount + 5;
+            } else if ((ulMaxScs || maxScs) === 4) {
+                // 處理 mmWave UL (120kHz)
+                let bwUL = ulMaxBw || dlMaxBw; // 若 UL 缺少頻寬資料，以 DL 頻寬作為備用判斷
+                if (bwUL >= 200) {
+                    featureObj.bwClassUL = ulFeatureCount === 1 ? 1 : ulFeatureCount + 2;
+                } else {
+                    featureObj.bwClassUL = ulFeatureCount === 1 ? 1 : ulFeatureCount + 5;
+                }
             } else {
                 featureObj.bwClassUL = ulFeatureCount === 1 ? 1 : ulFeatureCount + 1;
             }
