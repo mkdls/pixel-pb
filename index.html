@@ -129,7 +129,7 @@
             -webkit-overflow-scrolling: touch; padding-bottom: 8px;
         }
 
-/* π Fix: Remove hardcoded widths, fully switch to adaptive width and prevent text wrapping */
+        /* Fix: Remove hardcoded widths, fully switch to adaptive width and prevent text wrapping */
         .groupheader {
             color: var(--md-on-surface-variant); font-size: 11px;
             display: flex; align-items: center; gap: 8px; padding: 6px 10px;
@@ -148,7 +148,7 @@
             text-align: center;
             field-sizing: content; /* Modern WebView auto-sizing by character count */
         }
-/* π 1. Fix powerClass unclickable: Remove max-content and nowrap, provide fixed safe width and touch optimization */
+        /* 1. Fix powerClass unclickable: Remove max-content and nowrap, provide fixed safe width and touch optimization */
         .groupheader select {
             width: 110px;
             min-height: 26px;
@@ -160,7 +160,7 @@
             touch-action: manipulation;
         }
 
-        /* π 2. Top Integrity input adaptive width */
+        /* 2. Top Integrity input adaptive width */
         #integrityField {
             min-width: 60px;
             width: auto;
@@ -198,7 +198,7 @@
             gap: 4px;
         }
 
-        /* Force band button column to not wrap, input and "β β - +" fixed side-by-side */
+        /* Force band button column to not wrap, input and "up down - +" fixed side-by-side */
         .combo-table td:first-child {
             min-width: 225px;
             display: inline-flex !important;
@@ -239,7 +239,7 @@
             font-size: 12px; border: 1px solid var(--md-outline);
             width: 100%; box-sizing: border-box; resize: none; line-height: 1.4;
         }
-        /* π Force minimum height and flex rules to prevent text boxes from being squashed */
+        /* Force minimum height and flex rules to prevent text boxes from being squashed */
         #jsonheaderOutput {
             min-height: 90px;
             flex-shrink: 0;
@@ -251,7 +251,7 @@
         }
         textarea.json-box:focus { border-color: var(--md-primary); outline: none; }
 
-/* π 1. Modal mask: Force full-screen Flex centering, support display:block dynamic overlay */
+        /* 1. Modal mask: Force full-screen Flex centering, support display:block dynamic overlay */
         .modal {
             display: none;
             position: fixed;
@@ -270,7 +270,7 @@
             display: flex !important;
         }
 
-        /* π 2. General card container: Prevent collapsing and allow internal scrolling */
+        /* 2. General card container: Prevent collapsing and allow internal scrolling */
         .modal-content {
             background-color: var(--md-surface);
             margin: auto;
@@ -290,7 +290,7 @@
             box-shadow: 0 8px 24px rgba(0,0,0,0.3);
         }
 
-        /* π 3. Batch Gen exclusive frame: Fixed header/footer, scrollable body */
+        /* 3. Batch Gen exclusive frame: Fixed header/footer, scrollable body */
         .batch-content {
             max-width: 560px !important;
             width: 94% !important;
@@ -300,7 +300,7 @@
             display: flex !important;
         }
 
-        /* π 4. Form internal scroll area: Only this part scrolls, buttons remain fixed */
+        /* 4. Form internal scroll area: Only this part scrolls, buttons remain fixed */
         .batch-form {
             display: flex;
             flex-direction: column;
@@ -328,7 +328,7 @@
             padding-top: 12px;
         }
 
-        /* π 5. JSON η·¨θΌ―ε¨ε°ε±¬ε�ζ‘οΌεΌ·εΆζε°ι«εΊ¦οΌι²ζ­’ζε­ζ‘εε‘ */
+        /* 5. JSON Editor exclusive frame: Force minimum height, prevent text box collapse */
         .json-content {
             min-height: 480px !important;
             width: 92% !important;
@@ -414,8 +414,8 @@
         </div>
         <div id="recompileBtn" style="display: none;">
             <input type="text" id="filenameInput" value="" onchange="updateFilename(this.value)" style="width: 150px;">
-            <button title="Download the compiled binarypb file" onclick="dlProtobuf()">β .binarypb</button>
-            <button title="Download the generated Magisk zip"onclick="createZipWithSubdirectories()">β .zip</button>
+            <button title="Download the compiled binarypb file" onclick="dlProtobuf()">↓ .binarypb</button>
+            <button title="Download the generated Magisk zip"onclick="createZipWithSubdirectories()">↓ .zip</button>
         </div>
         <button id="clearLocalStorageBtn" title="Clear the stored session" onclick="clearLocalStorageAndReload()">Clear session</button>
     </div>
@@ -501,8 +501,6 @@
         </div>
     </div>
 </div>
-
-
 
 <script>
     const protoDefinition = `
@@ -721,7 +719,7 @@
             let start = (currentPage - 1) * rowsPerPage;
             let end = start + rowsPerPage;
 
-// π Remove hardcoded style="width: 80px;", switch to dynamic size calculation and real-time input adaptation
+            /* Remove hardcoded style="width: 80px;", switch to dynamic size calculation and real-time input adaptation */
             let integrityVal = decodedData.unknown !== undefined ? decodedData.unknown : '';
             let tableHTML = `<div class="binarypbInfo">
                 <span>ID: ${decodedData.id} | Ver: ${decodedData.version}</span>
@@ -750,7 +748,7 @@
                 let realGroupIndex = globalIndexMap[start + localGroupIndex];
 
                 group.combo.forEach((combo, localComboIndex) => {
-let bcsNrVal = parseBcs(group.comboHeader.bcsNr);
+                    let bcsNrVal = parseBcs(group.comboHeader.bcsNr);
                     let bcsIntraVal = parseBcs(group.comboHeader.bcsIntraEndc);
                     let bcsEutraVal = parseBcs(group.comboHeader.bcsEutra);
                     let intraEndcVal = group.comboHeader.intraBandEnDcSupport !== undefined ? group.comboHeader.intraBandEnDcSupport : 0;
@@ -777,11 +775,11 @@ let bcsNrVal = parseBcs(group.comboHeader.bcsNr);
                         let bandInput = `<input name="band-input" type="text" class="band-input" value="${bandParseInt(ccItem.bwClassDL,ccItem.band)}" onchange="updateBand(${realGroupIndex}, ${localComboIndex}, ${ccIndex}, this.value)" />`;
 
                         let addBandBtn = ccIndex === combo.cc.length - 1 ? `<button class="btn-copy" onclick="addBand(${realGroupIndex}, ${localComboIndex})">+</button>` : "";
-                        let moveBandUpBtn = `<button class="btn-copy" title="Move band up" onclick="moveBand(${realGroupIndex}, ${localComboIndex}, ${ccIndex}, -1)" ${ccIndex === 0 ? "disabled" : ""}>β</button>`;
-                        let moveBandDownBtn = `<button class="btn-copy" title="Move band down" onclick="moveBand(${realGroupIndex}, ${localComboIndex}, ${ccIndex}, 1)" ${ccIndex === combo.cc.length - 1 ? "disabled" : ""}>β</button>`;
+                        let moveBandUpBtn = `<button class="btn-copy" title="Move band up" onclick="moveBand(${realGroupIndex}, ${localComboIndex}, ${ccIndex}, -1)" ${ccIndex === 0 ? "disabled" : ""}>↑</button>`;
+                        let moveBandDownBtn = `<button class="btn-copy" title="Move band down" onclick="moveBand(${realGroupIndex}, ${localComboIndex}, ${ccIndex}, 1)" ${ccIndex === combo.cc.length - 1 ? "disabled" : ""}>↓</button>`;
                         let removeBandBtn = `<button class="btn-rem" onclick="removeBand(${realGroupIndex}, ${localComboIndex}, ${ccIndex})">-</button>`;
 
-                        // π Put + button in the same horizontal flex row as -, ensure alignment and no wrapping
+                        /* Put + button in the same horizontal flex row as -, ensure alignment and no wrapping */
                         let dlFeaturePerCCIdsHTML = '<div style="display:flex; flex-direction:column; gap:6px; align-items:flex-start;">';
                         let ulFeaturePerCCIdsHTML = '<div style="display:flex; flex-direction:column; gap:6px; align-items:flex-start;">';
 
@@ -1023,7 +1021,7 @@ let bcsNrVal = parseBcs(group.comboHeader.bcsNr);
 
     function updatePaginationControls(totalPages) {
         let paginationHTML = `
-            <button class="btn-copy" onclick="changePage(-1000)" ${currentPage === 1 ? "disabled" : ""}>Β«</button>
+            <button class="btn-copy" onclick="changePage(-1000)" ${currentPage === 1 ? "disabled" : ""}>«</button>
             <button class="btn-copy" onclick="changePage(-1)" ${currentPage === 1 ? "disabled" : ""}>Prev</button>
             <span>${currentPage}/${totalPages}</span>
             <button class="btn-copy" onclick="changePage(1)" ${currentPage === totalPages ? "disabled" : ""}>Next</button>
@@ -1096,33 +1094,50 @@ let bcsNrVal = parseBcs(group.comboHeader.bcsNr);
         const ids = featureIds ? Array.from(featureIds) : [];
         const carrierCount = ids.length;
         if (carrierCount === 0) return 0;
-        if (carrierCount === 1) return 1; // 1CC 統一為 Class A (1)
+        if (carrierCount === 1) return 1; // 1CC unified as Class A (1)
 
         const features = ids.map(id => featureList?.[Number(id) - 1]).filter(Boolean);
         let maxScs = Math.max(0, ...features.map(feature => Number(feature.maxScs) || 0));
         
-        // 若 UL 沒有設定 SCS，Fallback 借用 DL 的 SCS (避免 mmWave 被誤判為 Sub-6GHz)
+        // If UL lacks SCS configuration, fallback to DL SCS (prevents mmWave misidentification as Sub-6GHz)
         if (maxScs === 0 && fallbackScs > 0) {
             maxScs = fallbackScs;
         }
 
-        // Sub-6GHz 邏輯
+        // Sub-6GHz logic
         if (maxScs < 4) {
             const aggregateBandwidth = features.reduce((total, feature) => total + (Number(feature.maxBw) || fallbackBw), 0);
             if (carrierCount === 2 && features.length === carrierCount && aggregateBandwidth > 20 && aggregateBandwidth <= 100) return 2; // Class B
             return carrierCount + 1; // Class C(3) for 2CC, etc.
         }
 
-        // mmWave 毫米波邏輯 (120kHz SCS = 4, 240kHz SCS = 5)
+        // mmWave logic (120kHz SCS = 4, 240kHz SCS = 5)
         const maxCarrierBandwidth = Math.max(0, ...features.map(feature => Number(feature.maxBw) || fallbackBw));
         
-        // >= 200MHz 載波聚合 (Class D=4, E=5, F=6...)
+        // >= 200MHz CA (Class D=4, E=5, F=6...)
         if (maxCarrierBandwidth >= 200) {
             return carrierCount + 2; 
         }
         
-        // < 200MHz (通常為 100MHz) 載波聚合 (Class G=7, H=8, I=9...)
+        // < 200MHz (typically 100MHz) CA (Class G=7, H=8, I=9...)
         return carrierCount <= 8 ? carrierCount + 5 : 0;
+    }
+
+    function findNrClassBCompanionFeatureId(featureId, featureList) {
+        const sourceFeature = featureList?.[Number(featureId) - 1];
+        if (!sourceFeature) return featureId;
+        const sourceBandwidth = Number(sourceFeature.maxBw) || 0;
+        const duplicatedBandwidth = sourceBandwidth * 2;
+        if (duplicatedBandwidth > 20 && duplicatedBandwidth <= 100) return featureId;
+        const candidates = featureList.map((feature, index) => ({ feature, featureId: index + 1 }))
+            .filter(({ feature }) => {
+                const aggregateBandwidth = sourceBandwidth + (Number(feature.maxBw) || 0);
+                return feature.maxScs === sourceFeature.maxScs && feature.maxMimo === sourceFeature.maxMimo && feature.maxModOrder === sourceFeature.maxModOrder && aggregateBandwidth > 20 && aggregateBandwidth <= 100;
+            }).sort((left, right) => {
+                const bandwidthDifference = Number(left.feature.maxBw) - Number(right.feature.maxBw);
+                return bandwidthDifference || left.featureId - right.featureId;
+            });
+        return candidates[0]?.featureId || featureId;
     }
 
     function updateDependentValues(featureObj, ran) {
@@ -1139,11 +1154,11 @@ let bcsNrVal = parseBcs(group.comboHeader.bcsNr);
         
         const useConsecutiveLteClasses = ran > 0 && isAllowedLteClassB(featureObj);
         
-        // 傳入對應的 Feature IDs 與 Feature List
+        // Pass corresponding Feature IDs and Feature List
         const calculatedDlClass = calculateNrBandwidthClass(dlFeatureIds, decodedData.dlFeaturePerCCList);
         featureObj.bwClassDL = useConsecutiveLteClasses ? dlFeatureCount : calculatedDlClass;
         
-        // UL 計算時，額外傳入 DL 的 maxBw 與 maxScs 作為備用 (Fallback)，確保 mmWave 的 UL 分級不出錯
+        // During UL calculation, pass DL's maxBw and maxScs as fallback to ensure correct mmWave UL classification
         const calculatedUlClass = calculateNrBandwidthClass(ulFeatureIds, decodedData.ulFeaturePerCCList, dlMaxBw, dlMaxScs);
         
         const useConsecutiveLteUlClasses = useConsecutiveLteClasses && featureObj.bwClassDL === 2;
@@ -1375,6 +1390,7 @@ let bcsNrVal = parseBcs(group.comboHeader.bcsNr);
                 const decodedMessage = UeCaps.decode(buffer);
                 decodedData = UeCaps.toObject(decodedMessage, { defaults: true });
                 processDecodedMessage(decodedData);
+                document.getElementById("batchGenBtn").style.display = "block";
                 generateTable(decodedData);
             } catch (error) {
                 document.getElementById('tableContainer').innerHTML = "Error decoding file: " + error.message;
@@ -1390,14 +1406,14 @@ let bcsNrVal = parseBcs(group.comboHeader.bcsNr);
         return new Blob([buffer], { type: "application/octet-stream" });
     }
 
-function dlProtobuf() {
+    function dlProtobuf() {
             if (!decodedData) { showAlert("Missing Data", "No data to recompile!"); return; }
             const message = UeCaps.fromObject(decodedData);
             const buffer = UeCaps.encode(message).finish();
             const filename = `mod_${originalFilename}.binarypb`;
 
             if (window.AndroidBridge) {
-                // π Inside Android App: Convert to Base64 and hand over to native layer to trigger "Save File" window
+                /* Inside Android App: Convert to Base64 and hand over to native layer to trigger "Save File" window */
                 let binary = '';
                 for (let i = 0; i < buffer.byteLength; i++) {
                     binary += String.fromCharCode(buffer[i]);
@@ -1481,7 +1497,7 @@ async function createZipWithSubdirectories() {
                 const filename = `${originalFilename}-${curr_time}.zip`;
 
                 if (window.AndroidBridge) {
-                    // π Inside Android App: Generate Base64 string directly from JSZip and pass to native layer
+                    /* Inside Android App: Generate Base64 string directly from JSZip and pass to native layer */
                     const base64Data = await zip.generateAsync({ type: "base64", compression: "DEFLATE", compressionOptions: { level: 9 } });
                     window.AndroidBridge.saveFile(base64Data, filename);
                 } else {
@@ -1499,9 +1515,9 @@ async function createZipWithSubdirectories() {
             } catch (error) { return false; }
         }
 
-// ==========================================
-        // π 1. Clear all combinations logic
-        // ==========================================
+        /* ==========================================
+           1. Clear all combinations logic
+           ========================================== */
         function clearAllCombos() {
             if (!decodedData) return;
             showConfirm("Clear All", "Are you sure you want to clear all combinations? This cannot be undone.", () => {
@@ -1532,10 +1548,10 @@ async function createZipWithSubdirectories() {
             reader.readAsArrayBuffer(file);
         });
 
-        // ==========================================
-        // π 2. Batch generation window and algorithm (Ported from Python)
-        // ==========================================
-let nrIndexCache = {}; // Cache user-entered DL/UL Index for each band
+        /* ==========================================
+           2. Batch generation window and algorithm (Ported from Python)
+           ========================================== */
+        let nrIndexCache = {}; // Cache user-entered DL/UL Index for each band
 
         function openBatchModal() {
             let modal = document.getElementById('batchGenModal');
