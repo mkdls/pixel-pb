@@ -7,7 +7,6 @@
 
 * **Batch Generation**: A new tool to generate multiple combinations using 3GPP bandwidth classes (e.g., `b3+b7C+n78C`). It includes settings for max CCs, MIMO, anchors, and dynamic NR band feature index configuration.
 * **Clear All**: A button to clear all existing combinations at once.
-* **Band Reordering**: Up and down buttons to change the order of bands within a specific combination.
 
 > [!TIP]
 > **Android App Integration**: Added `AndroidBridge` support to directly save `.binarypb` and `.zip` files when used inside an Android WebView wrapper.
